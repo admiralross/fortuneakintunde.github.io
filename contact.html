@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Inbio Contact</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .bottom-content-spacer {
+      height: 40px;
+    }
+  </style>
+</head>
+<body class="bg-[#1e2528] text-white min-h-screen flex flex-col">
+  <main class="flex-grow max-w-[600px] mx-auto px-6 py-16 w-full">
+    <h2 class="text-gray-400 text-xs tracking-widest mb-3">GET IN TOUCH</h2>
+    <h1
+      class="text-4xl md:text-5xl font-extrabold leading-tight mb-8 text-white"
+    >
+      Contact Me
+    </h1>
+    <div class="flex space-x-4 text-gray-600">
+      <a aria-label="whatsapp"  class="hover:text-white transition text-5xl" href="#"><i class="fab fa-whatsapp"></i></a>
+      <a aria-label="instagram" class="hover:text-white transition text-5xl" href="#"><i class="fab fa-instagram"></i></a>
+      <a aria-label="gitHub" class="hover:text-white transition text-5xl" href="#"><i class="fab fa-github"></i></a>
+     </div>
+     <div class="bottom-content-spacer"></div>
+    <form id="contactForm" class="space-y-6" novalidate>
+      <div>
+        <label class="block text-xs font-semibold mb-1" for="name">Name</label>
+        <input
+          class="w-full rounded-md bg-[#2a3237] border border-gray-700 text-white text-sm px-4 py-2 focus:outline-none focus:border-[#b8003a]"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required
+          type="text"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden" id="nameError">Please enter your name.</p>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1" for="email"
+          >Email</label
+        >
+        <input
+          class="w-full rounded-md bg-[#2a3237] border border-gray-700 text-white text-sm px-4 py-2 focus:outline-none focus:border-[#b8003a]"
+          id="email"
+          name="email"
+          placeholder="Your email"
+          required
+          type="email"
+        />
+        <p class="text-red-500 text-xs mt-1 hidden" id="emailError">Please enter a valid email.</p>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold mb-1" for="message"
+          >Message</label
+        >
+        <textarea
+          class="w-full rounded-md bg-[#2a3237] border border-gray-700 text-white text-sm px-4 py-2 h-32 resize-none focus:outline-none focus:border-[#b8003a]"
+          id="message"
+          name="message"
+          placeholder="Your message"
+          required
+        ></textarea>
+        <p class="text-red-500 text-xs mt-1 hidden" id="messageError">Please enter your message.</p>
+      </div>
+      <button
+        class="bg-[#b8003a] text-white text-xs font-semibold tracking-widest px-6 py-2 rounded-md hover:bg-[#d1004f] transition"
+        type="submit"
+      >
+        SEND MESSAGE
+      </button>
+    </form>
+    <p
+      id="formSuccess"
+      class="text-green-500 text-sm mt-4 hidden font-semibold"
+    >
+      Thank you for contacting me! I will get back to you soon.
+    </p>
+  </main>
+  <footer
+    class="max-w-[1200px] mx-auto px-6 py-6 text-center text-gray-500 text-xs"
+  >
+    © 2025 Ololade. All rights reserved.
+  </footer>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const messageError = document.getElementById("messageError");
+    const formSuccess = document.getElementById("formSuccess");
+
+    function validateEmail(email) {
+      // Simple email regex validation
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      // Reset errors
+      nameError.classList.add("hidden");
+      emailError.classList.add("hidden");
+      messageError.classList.add("hidden");
+      formSuccess.classList.add("hidden");
+
+      // Validate name
+      if (!nameInput.value.trim()) {
+        nameError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // Validate email
+      if (!validateEmail(emailInput.value.trim())) {
+        emailError.classList.remove("hidden");
+        valid = false;
+      }
+
+      // Validate message
+      if (!messageInput.value.trim()) {
+        messageError.classList.remove("hidden");
+        valid = false;
+      }
+
+      if (!valid) return;
+      // Send form data to your email using an email service
+      // Example: Using EmailJS (https://www.emailjs.com/)
+      emailjs.init("5d8Ow6xpdbOQVSKW6"); // Replace with your EmailJS user ID
+
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        name: nameInput.value,
+        email: emailInput.value,
+        message: messageInput.value,
+      }).then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+        formSuccess.classList.remove("hidden");
+        form.reset();
+      }, function(error) {
+        console.log("FAILED...", error);
+        alert("Failed to send message. Please try again later.");
+      });
+      // Simulate form submission (e.g., send data to server)
+      // Here we just show success message and reset form
+      formSuccess.classList.remove("hidden");
+      form.reset();
+    });
+  </script>
+</body>
+</html>

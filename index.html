@@ -1,0 +1,113 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Inbio Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      background-color: #1e2528;
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-[#1e2528] text-white">
+  <header class="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between relative">
+   <div class="flex items-center space-x-3">
+    <img alt="" class="rounded-full w-10 h-10 object-cover" height="40" src="../assets/ololade.JPG" width="40"/>
+    <span class="text-white font-semibold text-sm tracking-wide">INBIO</span>
+   </div>
+   <nav>
+    <button aria-label="Toggle menu" class="md:hidden text-gray-300 focus:outline-none" id="menu-button" type="button">
+     <i class="fas fa-bars text-xl"></i>
+    </button>
+    <ul class="hidden md:flex space-x-6 text-xs text-gray-300 font-semibold tracking-widest" id="menu">
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('home.html')">HOME</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('features.html')">FEATURES</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('portfolio.html')">PORTFOLIO</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('resume.html')">RESUME</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('/out/notavailable.html')">CLIENTS</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('pricing.html')">PRICING</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('/out/notavailable.html')">BLOG</a></li>
+        <li><a class="hover:text-white active:text-[#b8003a] transition" href="#" onclick="loadPage('contact.html')">CONTACT</a></li>
+    </ul>
+   </nav>
+   <a class="hidden md:inline-block bg-[#b8003a] text-white text-xs font-semibold tracking-widest px-4 py-1 rounded-md hover:bg-[#d1004f] transition" href="#"onclick="loadPage('pricing.html')">BUY NOW</a>
+   <!-- Mobile menu -->
+   <div class="absolute top-full right-6 mt-2 w-48 bg-[#2a3237] rounded-md shadow-lg z-50 hidden flex-col" id="mobile-menu">
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('home.html')">HOME</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('features.html')">FEATURES</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('portfolio.html')">PORTFOLIO</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('resume.html')">RESUME</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('/out/notavailable.html')">CLIENTS</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('pricing.html')">PRICING</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white border-b border-gray-600" href="#" onclick="loadPage('/out/notavailable.html')">BLOG</a>
+    <a class="block px-4 py-2 text-xs text-gray-300 font-semibold tracking-widest hover:text-white" href="#" onclick="loadPage('contact.html')">CONTACT</a>
+   </div>
+  </header>
+  <main class="max-w-[1200px] mx-auto px-6 flex flex-col-reverse md:flex-row items-center md:items-start gap-10 md:gap-0">
+    <div id="content" class="mt-6"></div>
+  </main>
+  <script>
+function loadPage(page) {
+    const content = document.getElementById('content');
+    fetch(page)
+      .then(response => response.text())
+      .then(data => {
+        content.innerHTML = data;
+      })
+      
+  }
+  // Load the home page by default
+  loadPage('home.html');
+  // Mobile menu toggle 
+
+  
+
+   const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Optional: Close menu when clicking outside
+    window.addEventListener('click', (e) => {
+      if (!menuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    // Display a cookie consent banner
+// ...existing code...
+function showCookieConsent() {
+    const consentBanner = document.createElement('div');
+    consentBanner.id = 'cookie-consent';
+    consentBanner.className = 'fixed bottom-0 left-0 w-full bg-[#2a3237] text-white px-4 py-3 flex flex-col md:flex-row items-center justify-center z-50 shadow-lg';
+    consentBanner.innerHTML = `
+      <span class="text-sm md:text-base flex-1 text-center md:text-left">
+        This website uses cookies to ensure you get the best experience.
+      </span>
+      <button id="accept-cookies" class="mt-2 md:mt-0 md:ml-4 bg-[#b8003a] hover:bg-[#d1004f] text-white font-semibold px-4 py-2 rounded transition">
+        Accept
+      </button>
+    `;
+
+    document.body.appendChild(consentBanner);
+
+    document.getElementById('accept-cookies').addEventListener('click', () => {
+      document.cookie = "cookiesAccepted=true; path=/; max-age=" + 60 * 60 * 24 * 365;
+      consentBanner.remove();
+    });
+  }
+// ...existing code...
+
+// Check if cookies have already been accepted
+if (!document.cookie.split('; ').find(row => row.startsWith('cookiesAccepted=true'))) {
+  showCookieConsent();
+}
+  </script>
+ </body>
+</html>
